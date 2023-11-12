@@ -1,10 +1,10 @@
 <div class="card my-3 p-3 rounded">
-  <a href="/product/{{ product._id }}">
+  <a routerLink="/product/{{ product._id }}">
     <img src="{{ product.image }}" class="card-img-top" />
   </a>
 
   <div class="card-body">
-    <a href="/product/{{ product._id }}">
+    <a routerLink="/product/{{ product._id }}">
       <div class="card-title">
         <strong>{{ product.name }}</strong>
       </div>
