@@ -1,0 +1,57 @@
+<div class="rating">
+  <span
+    [innerHTML]="
+      value >= 1
+        ? '<i class=\'fa fa-star\'></i>'
+        : value >= 0.5
+        ? '<i class=\'fa fa-star-half\'></i>'
+        : '<i class=\'fa fa-star-o\'></i>'
+    "
+  ></span>
+  <span
+    [innerHTML]="
+      value >= 1
+        ? '<i class=\'fa fa-star\'></i>'
+        : value >= 0.5
+        ? '<i class=\'fa fa-star-half\'></i>'
+        : '<i class=\'fa fa-star-o\'></i>'
+    "
+  ></span>
+  <span
+    [innerHTML]="
+      value >= 2
+        ? '<i class=\'fa fa-star\'></i>'
+        : value >= 1.5
+        ? '<i class=\'fa fa-star-half\'></i>'
+        : '<i class=\'fa fa-star-o\'></i>'
+    "
+  ></span>
+  <span
+    [innerHTML]="
+      value >= 3
+        ? '<i class=\'fa fa-star\'></i>'
+        : value >= 2.5
+        ? '<i class=\'fa fa-star-half\'></i>'
+        : '<i class=\'fa fa-star-o\'></i>'
+    "
+  ></span>
+  <span
+    [innerHTML]="
+      value >= 4
+        ? '<i class=\'fa fa-star\'></i>'
+        : value >= 3.5
+        ? '<i class=\'fa fa-star-half-stroke\'></i>'
+        : '<i class=\'fa fa-star-o\'></i>'
+    "
+  ></span>
+  <span
+    [innerHTML]="
+      value >= 5
+        ? '<i class=\'fa fa-star\'></i>'
+        : value >= 4.5
+        ? '<i class=\'fa fa-star-half-stroke\'></i>'
+        : '<i class=\'fa fa-star-o\'></i>'
+    "
+  ></span>
+  <span class="rating-text">{{ text && text }} reviews</span>
+</div>

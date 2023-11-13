@@ -1,14 +1,19 @@
 <div class="card my-3 p-3 rounded">
   <a routerLink="/product/{{ product._id }}">
-    <img src="{{ product.image }}" class="card-img-top" />
+    <img src="{{ product.image }}" class="card-img-top product-image" />
   </a>
 
   <div class="card-body">
     <a routerLink="/product/{{ product._id }}">
-      <div class="card-title">
+      <div class="card-title product-title">
         <strong>{{ product.name }}</strong>
       </div>
-
+      <div class="card-text">
+        <app-rating
+          [value]="product.rating"
+          [text]="product.numReviews"
+        ></app-rating>
+      </div>
       <h3 class="card-text">${{ product.price }}</h3>
     </a>
   </div>
