@@ -1,11 +1,12 @@
 using API.Data.Seeders;
 using API.Entities;
+using API.Extensions;
 using API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -18,10 +19,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    var productMongoDbService = app.Services.GetRequiredService<MongoDBService<Product>>();
-    await MongoDbDataSeeder.SeedProduct(productMongoDbService);
     var userMongoDbService = app.Services.GetRequiredService<MongoDBService<User>>();
+    userMongoDbService.CollectionName = "users";
     await MongoDbDataSeeder.SeedUser(userMongoDbService);
+    var productMongoDbService = app.Services.GetRequiredService<MongoDBService<Product>>();
+    productMongoDbService.CollectionName = "products";
+    await MongoDbDataSeeder.SeedProduct(productMongoDbService);
 }
 
 app.UseHttpsRedirection();

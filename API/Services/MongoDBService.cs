@@ -7,36 +7,41 @@ namespace API.Services
 {
     public class MongoDBService<T>
     {
-        protected readonly IMongoCollection<T>? _collection;
+        private readonly IMongoDatabase? _database;
+        private IMongoCollection<T>? collection;
+        private readonly string? collectionName;
 
-        public string? CollectionName { get; set; }
+        public string CollectionName
+        {
+            get => collectionName;
+            set => collection = _database.GetCollection<T>(value);
+        }
 
         public MongoDBService(IOptions<MongoDBSettings> mongoDBSettings)
         {
             MongoClient client = new(mongoDBSettings.Value.ConnectionURI);
-            IMongoDatabase database
-                = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-            _collection = database.GetCollection<T>(CollectionName);
+            _database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
+
         }
 
         public async Task<List<T>> GetAsync()
         {
-            return await _collection.Find(new BsonDocument()).ToListAsync();
+            return await collection.Find(new BsonDocument()).ToListAsync();
         }
 
         public async Task CreateAsync(T entity)
         {
-            if (_collection != null)
+            if (collection != null)
             {
-                await _collection.InsertOneAsync(entity);
+                await collection.InsertOneAsync(entity);
             }
         }
 
         public async Task CreateManyAsync(List<T> entities)
         {
-            if (_collection != null)
+            if (collection != null)
             {
-                await _collection.InsertManyAsync(entities);
+                await collection.InsertManyAsync(entities);
             }
         }
     }

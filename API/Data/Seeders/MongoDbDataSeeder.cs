@@ -6,13 +6,15 @@ namespace API.Data.Seeders
 {
     public static class MongoDbDataSeeder
     {
+        const string SeederPath = "./Data/Seeders/MongoDbSeedData";
+
         public static async Task SeedProduct(MongoDBService<Product> mongoDBService)
         {
             var products = await mongoDBService.GetAsync();
             if (products.Count == 0)
             {
                 using (StreamReader streamReader
-                    = new StreamReader("./MongoDbSeedData/products.json"))
+                    = new StreamReader(Path.Combine(SeederPath, "products.json")))
                 {
                     string json = streamReader.ReadToEnd();
                     var productsSeedList
@@ -31,7 +33,7 @@ namespace API.Data.Seeders
             if (users.Count == 0)
             {
                 using (StreamReader streamReader
-                    = new StreamReader("./MongoDbSeedData/users.json"))
+                    = new StreamReader(Path.Combine(SeederPath, "users.json")))
                 {
                     string json = streamReader.ReadToEnd();
                     var usersSeedList
