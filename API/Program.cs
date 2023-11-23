@@ -1,3 +1,7 @@
+using API.Data.Seeders;
+using API.Entities;
+using API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +18,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    var productMongoDbService = app.Services.GetRequiredService<MongoDBService<Product>>();
+    await MongoDbDataSeeder.SeedProduct(productMongoDbService);
+    var userMongoDbService = app.Services.GetRequiredService<MongoDBService<User>>();
+    await MongoDbDataSeeder.SeedUser(userMongoDbService);
 }
 
 app.UseHttpsRedirection();

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Admin User",
+    "email": "admin@email.com",
+    "password": "123456",
+    "isAdmin": true
+  },
+  {
+    "name": "Thong Dinh",
+    "email": "thong@email.com",
+    "password": "123456",
+    "isAdmin": false
+  },
+  {
+    "name": "Hoai Thu",
+    "email": "thu@email.com",
+    "password": "123456",
+    "isAdmin": false
+  }
+]

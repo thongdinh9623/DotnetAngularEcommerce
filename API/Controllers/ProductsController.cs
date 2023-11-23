@@ -10,9 +10,9 @@ namespace API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly MongoDBService _mongoDBService;
+        private readonly MongoDBService<Product> _mongoDBService;
 
-        public ProductsController(MongoDBService mongoDBService)
+        public ProductsController(MongoDBService<Product> mongoDBService)
         {
             _mongoDBService = mongoDBService;
         }

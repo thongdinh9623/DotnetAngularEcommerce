@@ -1,6 +1,5 @@
 [
   {
-    "_id": "1",
     "name": "HTML and CSS: Design and Build Websites First Edition",
     "image": "/images/html-and-css.jpg",
     "description": "A full-color introduction to the basics of HTML and CSS from the publishers of Wrox!",
@@ -12,7 +11,6 @@
     "numReviews": 12
   },
   {
-    "_id": "2",
     "name": "Responsive Web Design with HTML5 and CSS",
     "image": "/images/responsive-web-design.jpg",
     "description": "Harness the latest capabilities of HTML5 and CSS to create a single UI that works flawlessly on mobile phones, tablets, and desktops — plus everything in-between - now with color images!",
@@ -24,7 +22,6 @@
     "numReviews": 8
   },
   {
-    "_id": "3",
     "name": "Introduction to Algorithms, fourth edition Kindle Edition",
     "image": "/images/introduction-to-algorithms.jpg",
     "description": "A comprehensive update of the leading algorithms text, with new material on matchings in bipartite graphs, online algorithms, machine learning, and other topics.",
@@ -36,7 +33,6 @@
     "numReviews": 12
   },
   {
-    "_id": "4",
     "name": "Operating System Concepts 10th Edition",
     "image": "/images/os-concepts.jpg",
     "description": "The tenth edition of Operating System Concepts has been revised to keep it fresh and up-to-date with contemporary examples of how operating systems function, as well as enhanced interactive elements to improve learning and the student's experience with the material",
@@ -48,7 +44,6 @@
     "numReviews": 12
   },
   {
-    "_id": "5",
     "name": "Head First Design Patterns",
     "image": "/images/head-first-design-patterns.jpg",
     "description": "Building Extensible and Maintainable Object-Oriented Software 2nd Edition",
@@ -60,7 +55,6 @@
     "numReviews": 10
   },
   {
-    "_id": "6",
     "name": "System Design Interview – An insider's guide",
     "image": "/images/system-design-interview.jpg",
     "description": "Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space",

@@ -10,7 +10,8 @@ namespace API.Extensions
             IConfiguration config)
         {
             _ = services.Configure<MongoDBSettings>(config.GetSection("MongoDB"));
-            _ = services.AddSingleton<MongoDBService>();
+            _ = services.AddSingleton<MongoDBService<Product>>();
+            _ = services.AddSingleton<MongoDBService<User>>();
 
             return services;
         }
