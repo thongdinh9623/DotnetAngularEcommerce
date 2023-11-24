@@ -8,7 +8,16 @@ namespace API.Data.Seeders
     {
         const string SeederPath = "./Data/Seeders/MongoDbSeedData";
 
-        public static async Task SeedProduct(MongoDBService<Product> mongoDBService)
+        public static async Task Seed(
+            MongoDBService<Product> mongoDbProductService,
+            MongoDBService<User> mongoDbUserService)
+        {
+            await SeedUser(mongoDbProductService, mongoDbUserService);
+        }
+
+        public static async Task SeedProduct(
+            MongoDBService<Product> mongoDBService,
+            string adminUserId)
         {
             var products = await mongoDBService.GetAsync();
             if (products.Count == 0)
@@ -21,15 +30,21 @@ namespace API.Data.Seeders
                         = JsonSerializer.Deserialize<List<Product>?>(json);
                     if (productsSeedList != null)
                     {
+                        foreach (var product in productsSeedList)
+                        {
+                            product.User = adminUserId;
+                        }
                         await mongoDBService.CreateManyAsync(productsSeedList);
                     }
                 }
             }
         }
 
-        public static async Task SeedUser(MongoDBService<User> mongoDBService)
+        public static async Task SeedUser(
+            MongoDBService<Product> mongoDbProductService,
+            MongoDBService<User> mongoDbUserService)
         {
-            var users = await mongoDBService.GetAsync();
+            var users = await mongoDbUserService.GetAsync();
             if (users.Count == 0)
             {
                 using (StreamReader streamReader
@@ -40,7 +55,11 @@ namespace API.Data.Seeders
                         = JsonSerializer.Deserialize<List<User>?>(json);
                     if (usersSeedList != null)
                     {
-                        await mongoDBService.CreateManyAsync(usersSeedList);
+                        await mongoDbUserService.CreateManyAsync(usersSeedList);
+                        users = await mongoDbUserService.GetAsync();
+                        var adminUserId
+                            = users.Where(u => u.IsAdmin).FirstOrDefault().Id;
+                        await SeedProduct(mongoDbProductService, adminUserId);
                     }
                 }
             }

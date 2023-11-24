@@ -1,3 +1,4 @@
+using API.Data.Destroyers;
 using API.Data.Seeders;
 using API.Entities;
 using API.Extensions;
@@ -19,12 +20,20 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    var userMongoDbService = app.Services.GetRequiredService<MongoDBService<User>>();
+
+    var userMongoDbService
+        = app.Services.GetRequiredService<MongoDBService<User>>();
     userMongoDbService.CollectionName = "users";
-    await MongoDbDataSeeder.SeedUser(userMongoDbService);
-    var productMongoDbService = app.Services.GetRequiredService<MongoDBService<Product>>();
+    var productMongoDbService
+        = app.Services.GetRequiredService<MongoDBService<Product>>();
     productMongoDbService.CollectionName = "products";
-    await MongoDbDataSeeder.SeedProduct(productMongoDbService);
+
+    // Destroy data
+    await MongoDbDataDestroyer.DestroyUser(userMongoDbService);
+    await MongoDbDataDestroyer.DestroyProduct(productMongoDbService);
+
+    // Seed data
+    await MongoDbDataSeeder.Seed(productMongoDbService, userMongoDbService);
 }
 
 app.UseHttpsRedirection();

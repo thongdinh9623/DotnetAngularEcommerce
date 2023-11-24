@@ -6,6 +6,15 @@ namespace API.Entities
 {
     public class User
     {
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("_id")]
+        [JsonPropertyName("_id")]
+        public string? Id { get; set; }
+
+        [BsonElement("ts")]
+        public BsonTimestamp? TimeStamp { get; set; }
+            = new BsonTimestamp(DateTime.Now.Ticks);
+
         [BsonElement("name")]
         [JsonPropertyName("name")]
         public string? Name { get; set; }
@@ -21,8 +30,5 @@ namespace API.Entities
         [BsonElement("isAdmin")]
         [JsonPropertyName("isAdmin")]
         public bool IsAdmin { get; set; }
-
-        [BsonElement("ts")]
-        public BsonTimestamp? TimeStamp { get; set; }
     }
 }

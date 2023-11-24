@@ -9,11 +9,9 @@ namespace API.Services
     {
         private readonly IMongoDatabase? _database;
         private IMongoCollection<T>? collection;
-        private readonly string? collectionName;
 
         public string CollectionName
         {
-            get => collectionName;
             set => collection = _database.GetCollection<T>(value);
         }
 
@@ -21,7 +19,6 @@ namespace API.Services
         {
             MongoClient client = new(mongoDBSettings.Value.ConnectionURI);
             _database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-
         }
 
         public async Task<List<T>> GetAsync()
@@ -42,6 +39,14 @@ namespace API.Services
             if (collection != null)
             {
                 await collection.InsertManyAsync(entities);
+            }
+        }
+
+        public async Task DeleteManyAsync()
+        {
+            if (collection != null)
+            {
+                await collection.DeleteManyAsync(Builders<T>.Filter.Empty);
             }
         }
     }
