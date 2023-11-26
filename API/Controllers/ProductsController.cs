@@ -1,8 +1,6 @@
 ﻿using API.Entities;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Dynamic;
-using System.Text.Json;
 
 namespace API.Controllers
 {
@@ -26,23 +24,19 @@ namespace API.Controllers
             return products;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<string> GetProduct(string id)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Product>> GetProduct(string id)
         {
-            dynamic product = new ExpandoObject();
-            product._id = "1";
-            product.name = "HTML and CSS: Design and Build Websites First Edition";
-            product.image = "/images/html-and-css.jpg";
-            product.description = "A full-color introduction to the basics of HTML and CSS from the publishers of Wrox!";
-            product.author = "Jon Duckett";
-            product.category = "Web Development & Design";
-            product.price = 17.29;
-            product.countInStock = 10;
-            product.rating = 4.5;
-            product.numReviews = 12;
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("Invalid product id");
+            }
+            Product product = await _mongoDBService.GetByIdAsync(id);
 
-            return JsonSerializer.Serialize(product);
+            return product ?? (ActionResult<Product>)NotFound();
         }
     }
 }

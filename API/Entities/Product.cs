@@ -6,6 +6,8 @@ namespace API.Entities
 {
     public class Product
     {
+        [BsonElement("_id")]
+        [JsonPropertyName("_id")]
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }

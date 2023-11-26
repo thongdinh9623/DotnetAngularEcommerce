@@ -26,6 +26,14 @@ namespace API.Services
             return await collection.Find(new BsonDocument()).ToListAsync();
         }
 
+        public async Task<T> GetByIdAsync(string id)
+        {
+            var filter = new BsonDocument { { "_id", id } };
+            var entity = await collection.Find(filter).SingleAsync();
+
+            return entity;
+        }
+
         public async Task CreateAsync(T entity)
         {
             if (collection != null)
@@ -46,7 +54,7 @@ namespace API.Services
         {
             if (collection != null)
             {
-                await collection.DeleteManyAsync(Builders<T>.Filter.Empty);
+                _ = await collection.DeleteManyAsync(Builders<T>.Filter.Empty);
             }
         }
     }
