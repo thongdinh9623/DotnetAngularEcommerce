@@ -1,5 +1,4 @@
 ﻿using API.Entities;
-using API.Services;
 using System.Text.Json;
 
 namespace API.Data.Seeders
@@ -9,14 +8,14 @@ namespace API.Data.Seeders
         const string SeederPath = "./Data/Seeders/MongoDbSeedData";
 
         public static async Task Seed(
-            MongoDBService<Product> mongoDbProductService,
-            MongoDBService<User> mongoDbUserService)
+            MongoDbService<Product> mongoDbProductService,
+            MongoDbService<User> mongoDbUserService)
         {
             await SeedUser(mongoDbProductService, mongoDbUserService);
         }
 
         public static async Task SeedProduct(
-            MongoDBService<Product> mongoDBService,
+            MongoDbService<Product> mongoDBService,
             string adminUserId)
         {
             var products = await mongoDBService.GetAsync();
@@ -41,8 +40,8 @@ namespace API.Data.Seeders
         }
 
         public static async Task SeedUser(
-            MongoDBService<Product> mongoDbProductService,
-            MongoDBService<User> mongoDbUserService)
+            MongoDbService<Product> mongoDbProductService,
+            MongoDbService<User> mongoDbUserService)
         {
             var users = await mongoDbUserService.GetAsync();
             if (users.Count == 0)

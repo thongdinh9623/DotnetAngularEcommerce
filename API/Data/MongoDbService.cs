@@ -1,11 +1,6 @@
-﻿using API.Entities;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson;
-using MongoDB.Driver;
-
-namespace API.Services
+﻿namespace API.Data
 {
-    public class MongoDBService<T>
+    public class MongoDbService<T> : IMongoDbService<T>
     {
         private readonly IMongoDatabase? _database;
         private IMongoCollection<T>? collection;
@@ -15,7 +10,7 @@ namespace API.Services
             set => collection = _database.GetCollection<T>(value);
         }
 
-        public MongoDBService(IOptions<MongoDBSettings> mongoDBSettings)
+        public MongoDbService(IOptions<MongoDBSettings> mongoDBSettings)
         {
             MongoClient client = new(mongoDBSettings.Value.ConnectionURI);
             _database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);

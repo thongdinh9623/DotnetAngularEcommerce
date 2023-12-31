@@ -1,5 +1,5 @@
-﻿using API.Entities;
-using API.Services;
+﻿using API.Data;
+using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -8,9 +8,9 @@ namespace API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly MongoDBService<Product> _mongoDBService;
+        private readonly IMongoDbService<Product> _mongoDBService;
 
-        public ProductsController(MongoDBService<Product> mongoDBService)
+        public ProductsController(IMongoDbService<Product> mongoDBService)
         {
             _mongoDBService = mongoDBService;
         }

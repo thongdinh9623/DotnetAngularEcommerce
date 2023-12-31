@@ -1,8 +1,9 @@
+using API.Data;
 using API.Data.Destroyers;
 using API.Data.Seeders;
 using API.Entities;
 using API.Extensions;
-using API.Services;
+using API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -22,10 +25,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
     var userMongoDbService
-        = app.Services.GetRequiredService<MongoDBService<User>>();
+        = app.Services.GetRequiredService<MongoDbService<User>>();
     userMongoDbService.CollectionName = "users";
     var productMongoDbService
-        = app.Services.GetRequiredService<MongoDBService<Product>>();
+        = app.Services.GetRequiredService<MongoDbService<Product>>();
     productMongoDbService.CollectionName = "products";
 
     // Destroy data
